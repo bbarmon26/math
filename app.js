@@ -1,33 +1,93 @@
 /* ===================================================================
-   iOS Modern Math App Engine (Auto-Hide Solution on Tap & Fluid Layout)
+   iOS Modern Math App Engine (Universal Loader + Mobile Optimized)
    Author: Bilas Academy Development
    =================================================================== */
 
 let currentChapterData = null;
 let currentQuestions = [];
+let allLoadedChapters = {};
 let bookmarks = JSON.parse(localStorage.getItem('math_app_bookmarks') || '[]');
 let currentFontScale = 1.0;
 let isBookmarksOnlyView = false;
 
-function getRegisteredChapters() {
-  return window.MATH_DATABASE || {};
-}
+// ২৪টি অধ্যায়ের তালিকা
+const chapterRegistry = [
+  { id: 1, name: "ঐকিক নিয়ম, সময় ও কাজ", file: "data/ch01.js" },
+  { id: 2, name: "নল ও চৌবাচ্চা", file: "data/ch02.js" },
+  { id: 3, name: "নৌকা ও স্রোত", file: "data/ch03.js" },
+  { id: 4, name: "ট্রেন", file: "data/ch04.js" },
+  { id: 5, name: "অনুপাত, মিশ্রণ ও বয়স", file: "data/ch05.js" },
+  { id: 6, name: "সংখ্যার সমীকরণ", file: "data/ch06.js" },
+  { id: 7, name: "শতকরা হিসাব, লাভ-ক্ষতি", file: "data/ch07.js" },
+  { id: 8, name: "মুনাফা আসল", file: "data/ch08.js" },
+  { id: 9, name: "পরিমাপ", file: "data/ch09.js" },
+  { id: 10, name: "সরল ও দ্বিপদী সমীকরণ", file: "data/ch10.js" },
+  { id: 11, name: "দূরত্ব", file: "data/ch11.js" },
+  { id: 12, name: "ভগ্নাংশ", file: "data/ch12.js" },
+  { id: 13, name: "গড়", file: "data/ch13.js" },
+  { id: 14, name: "ধারা", file: "data/ch14.js" },
+  { id: 15, name: "সরল ও মান নির্ণয়", file: "data/ch15.js" },
+  { id: 16, name: "উৎপাদক", file: "data/ch16.js" },
+  { id: 17, name: "গ.সা.গু এবং ল.সা.গু", file: "data/ch17.js" },
+  { id: 18, name: "সমীকরণ সমাধান", file: "data/ch18.js" },
+  { id: 19, name: "সূচক ও লগারিদম", file: "data/ch19.js" },
+  { id: 20, name: "বিবিধ", file: "data/ch20.js" },
+  { id: 21, name: "ত্রিকোণমিতি", file: "data/ch21.js" },
+  { id: 22, name: "জ্যামিতিক সংজ্ঞা", file: "data/ch22.js" },
+  { id: 23, name: "সংক্ষিপ্ত প্রশ্ন-উত্তর", file: "data/ch23.js" },
+  { id: 24, name: "নমুনা প্রশ্ন", file: "data/ch24.js" }
+];
 
-// অধ্যায় ওপেন করা
-function openChapter(chapterId) {
-  const db = getRegisteredChapters();
-  const data = db[chapterId];
+// অধ্যায় ওপেন করার সার্বজনীন নিরাপদ ফাংশন
+function openChapter(chapterId, customPath) {
+  const filePath = customPath || `data/ch${chapterId < 10 ? '0' + chapterId : chapterId}.js`;
 
-  if (!data) {
-    alert("এই অধ্যায়ের (অধ্যায় " + chapterId + ") ফাইলটি এখনো data ফোল্ডারে তৈরি করা হয়নি!");
+  // ১. মেমোরিতে আগেই থাকলে সরাসরি দেখানো
+  if (allLoadedChapters[chapterId]) {
+    currentChapterData = allLoadedChapters[chapterId];
+    currentQuestions = currentChapterData.questions;
+    renderChapterView();
     return;
   }
 
-  currentChapterData = data;
-  currentQuestions = data.questions;
-  renderChapterView();
+  // ২. MATH_DATABASE-এ থাকলে নেওয়া
+  if (window.MATH_DATABASE && window.MATH_DATABASE[chapterId]) {
+    allLoadedChapters[chapterId] = window.MATH_DATABASE[chapterId];
+    currentChapterData = allLoadedChapters[chapterId];
+    currentQuestions = currentChapterData.questions;
+    renderChapterView();
+    return;
+  }
+
+  // ৩. সরাসরি স্ক্রিপ্ট ইনজেক্ট করে লোড করা (আপনার আগের সফল নিয়ম)
+  const oldScript = document.getElementById('activeChapterScript');
+  if (oldScript) oldScript.remove();
+  window.chapterData = undefined;
+
+  const script = document.createElement('script');
+  script.id = 'activeChapterScript';
+  script.src = filePath;
+
+  script.onload = () => {
+    const loadedData = window.chapterData || (window.MATH_DATABASE && window.MATH_DATABASE[chapterId]);
+    if (loadedData) {
+      allLoadedChapters[chapterId] = JSON.parse(JSON.stringify(loadedData));
+      currentChapterData = allLoadedChapters[chapterId];
+      currentQuestions = currentChapterData.questions;
+      renderChapterView();
+    } else {
+      alert("অধ্যায় ডাটা পাওয়া যায়নি! ফাইলটি ঠিকমতো সেভ আছে কিনা দেখুন।");
+    }
+  };
+
+  script.onerror = () => {
+    alert("এই অধ্যায়ের (" + filePath + ") ফাইলটি এখনো তৈরি করা হয়নি!");
+  };
+
+  document.body.appendChild(script);
 }
 
+// অধ্যায়ের ভিউ প্রদর্শন
 function renderChapterView() {
   document.getElementById('chapterIndexGrid').style.display = 'none';
   document.getElementById('globalSearchResults').style.display = 'none';
@@ -125,7 +185,7 @@ function renderQuestionCards(questionsList, containerElement, showChapterName = 
         <div class="question-text">${q.question}</div>
       </div>
 
-      <!-- উত্তরের উপরে চাপ দিলেও হাইড হবে -->
+      <!-- উত্তরের উপরে চাপ দিলেও সমাধান হাইড হবে -->
       <div id="${solPanelId}" class="solution-panel" onclick="toggleSolutionById('${solPanelId}', '${chipId}')" title="ট্যাপ করে সমাধান বন্ধ করুন" style="display: none;">
         <div class="sol-tag-row">
           <span class="sol-tag"><i class="fa-solid fa-check-double"></i> পূর্ণাঙ্গ সমাধান</span>
@@ -144,7 +204,7 @@ function renderQuestionCards(questionsList, containerElement, showChapterName = 
   }
 }
 
-// সমাধান খোলা/বন্ধ করার টগল
+// সমাধান খোলা/বন্ধ করা
 function toggleSolutionById(solId, chipId) {
   const sol = document.getElementById(solId);
   const chip = document.getElementById(chipId);
@@ -165,7 +225,7 @@ function toggleSolutionById(solId, chipId) {
   }
 }
 
-// প্র্যাকটিস প্রশ্নের সমাধান টগল
+// প্র্যাকটিস সমাধান টগল
 function togglePracticeSolution(solId) {
   const el = document.getElementById(solId);
   if (!el) return;
@@ -175,7 +235,7 @@ function togglePracticeSolution(solId) {
   }
 }
 
-// সব সমাধান একসাথে খোলা/বন্ধ করা
+// সব সমাধান খোলা/বন্ধ করা
 function toggleAllSolutions(expand) {
   const panels = document.querySelectorAll('#chapterContentTray .solution-panel');
   const chips = document.querySelectorAll('#chapterContentTray .toggle-chip');
@@ -208,7 +268,7 @@ function goBackToIndex() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// গ্লোবাল সার্চ লজিক
+// সার্চ লজিক
 function onSearchInput(val) {
   const query = val.trim().toLowerCase();
   const clearBtn = document.getElementById('clearSearchBtn');
@@ -235,26 +295,17 @@ function onSearchInput(val) {
       card.style.display = text.includes(query) ? 'flex' : 'none';
     });
 
+    // গ্লোবাল সার্চ (যে অধ্যায়গুলো মেমোরিতে আছে)
     const matchedQuestions = [];
-    const db = getRegisteredChapters();
-
-    Object.keys(db).forEach(chId => {
-      const chap = db[chId];
+    Object.keys(allLoadedChapters).forEach(chId => {
+      const chap = allLoadedChapters[chId];
       if (chap && chap.questions) {
         chap.questions.forEach(q => {
           const matchQ = (q.question && q.question.toLowerCase().includes(query)) ||
                          (q.title && q.title.toLowerCase().includes(query)) ||
                          (q.solution && q.solution.toLowerCase().includes(query));
           
-          let matchPractice = false;
-          if (q.practice) {
-            matchPractice = q.practice.some(p => {
-              const pText = typeof p === 'object' ? (p.question + ' ' + p.solution) : p;
-              return pText.toLowerCase().includes(query);
-            });
-          }
-
-          if (matchQ || matchPractice) {
+          if (matchQ) {
             matchedQuestions.push({
               ...q,
               chapterId: chap.chapterId,
@@ -336,7 +387,7 @@ function toggleBookmarksView() {
   }
 }
 
-// ফন্ট সাইজ নিয়ন্ত্রণ
+// ফন্ট কন্ট্রোল
 function adjustFontSize(delta) {
   currentFontScale = Math.min(Math.max(0.85, currentFontScale + delta * 0.08), 1.35);
   document.documentElement.style.setProperty('--math-font-size', `${currentFontScale}rem`);
