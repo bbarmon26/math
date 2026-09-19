@@ -3,19 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>সেলফ প্রিপারেশন গণিত | iOS Dark Edition</title>
+  <title>সেলফ প্রিপারেশন গণিত | iOS Edition</title>
   
-  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=5.0">
   
-  <!-- MathJax Config -->
   <script>
     window.MathJax = {
       tex: {
@@ -26,37 +22,10 @@
     };
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
-
-  <!-- গ্লোবাল সার্চের জন্য ডাটাবেস স্ক্রিপ্ট (লোকালে সরাসরি কাজ করবে) -->
-  <script>window.MATH_DATABASE = {};</script>
-  <script src="data/ch01.js"></script>
-  <script src="data/ch02.js"></script>
-  <script src="data/ch03.js"></script>
-  <script src="data/ch04.js"></script>
-  <script src="data/ch05.js"></script>
-  <script src="data/ch06.js"></script>
-  <script src="data/ch07.js"></script>
-  <script src="data/ch08.js"></script>
-  <script src="data/ch09.js"></script>
-  <script src="data/ch10.js"></script>
-  <script src="data/ch11.js"></script>
-  <script src="data/ch12.js"></script>
-  <script src="data/ch13.js"></script>
-  <script src="data/ch14.js"></script>
-  <script src="data/ch15.js"></script>
-  <script src="data/ch16.js"></script>
-  <script src="data/ch17.js"></script>
-  <script src="data/ch18.js"></script>
-  <script src="data/ch19.js"></script>
-  <script src="data/ch20.js"></script>
-  <script src="data/ch21.js"></script>
-  <script src="data/ch22.js"></script>
-  <script src="data/ch23.js"></script>
-  <script src="data/ch24.js"></script>
 </head>
 <body>
 
-  <!-- iOS Glass Navigation Header -->
+  <!-- iOS Navbar -->
   <header class="ios-navbar">
     <div class="nav-container">
       <div class="nav-left">
@@ -64,18 +33,18 @@
           <i class="fa-solid fa-chevron-left"></i>
           <span>সূচিপত্র</span>
         </button>
-        <div class="nav-titles" id="navTitles">
+        <div class="nav-titles">
           <span class="ios-badge">Bilas Academy Pro</span>
           <h1 id="pageMainTitle">গণিত প্রস্তুতি</h1>
         </div>
       </div>
       
       <div class="nav-right">
-        <button class="ios-icon-btn" onclick="toggleScratchpad()" title="রাফ খাতা / Scratchpad">
+        <button class="ios-icon-btn" onclick="toggleScratchpad()" title="রাফ খাতা">
           <i class="fa-solid fa-pen-nib"></i>
         </button>
         
-        <button class="ios-icon-btn" id="favFilterBtn" onclick="toggleBookmarksView()" title="পছন্দের তালিকা">
+        <button class="ios-icon-btn" id="favFilterBtn" onclick="toggleBookmarksView()" title="বুকমার্ক">
           <i class="fa-regular fa-star"></i>
         </button>
         
@@ -88,7 +57,7 @@
   </header>
 
   <main class="ios-body">
-    <!-- Spotlight Search Bar -->
+    <!-- Search Bar -->
     <div class="ios-search-wrapper">
       <div class="ios-search-box">
         <i class="fa-solid fa-magnifying-glass search-icon"></i>
@@ -99,7 +68,7 @@
       </div>
     </div>
 
-    <!-- Chapter Control Panel -->
+    <!-- Chapter Toolbar -->
     <section id="chapterToolbar" class="ios-toolbar" style="display: none;">
       <div class="toolbar-stat">
         <i class="fa-solid fa-layer-group"></i>
@@ -115,12 +84,9 @@
       </div>
     </section>
 
-    <!-- Global Search Results Tray -->
-    <section id="globalSearchResults" class="search-results-tray" style="display: none;"></section>
-
-    <!-- 24 Chapter Index Grid -->
+    <!-- Index Grid (Original) -->
     <section id="chapterIndexGrid" class="ios-grid">
-      <div class="ios-card" onclick="openChapter(1)">
+      <div class="ios-card" onclick="openChapter(1, 'data/ch01.js')">
         <div class="card-glass-symbol" style="--accent-color: #0A84FF;"><i class="fa-solid fa-calculator"></i></div>
         <div class="card-details">
           <span class="chap-badge">অধ্যায় ০১</span>
@@ -130,7 +96,7 @@
         <i class="fa-solid fa-chevron-right chevron-icon"></i>
       </div>
 
-      <div class="ios-card" onclick="openChapter(2)">
+      <div class="ios-card" onclick="openChapter(2, 'data/ch02.js')">
         <div class="card-glass-symbol" style="--accent-color: #30D158;"><i class="fa-solid fa-faucet-drip"></i></div>
         <div class="card-details">
           <span class="chap-badge">অধ্যায় ০২</span>
@@ -140,7 +106,7 @@
         <i class="fa-solid fa-chevron-right chevron-icon"></i>
       </div>
 
-      <div class="ios-card" onclick="openChapter(3)">
+      <div class="ios-card" onclick="openChapter(3, 'data/ch03.js')">
         <div class="card-glass-symbol" style="--accent-color: #5E5CE6;"><i class="fa-solid fa-sailboat"></i></div>
         <div class="card-details">
           <span class="chap-badge">অধ্যায় ০৩</span>
@@ -150,7 +116,7 @@
         <i class="fa-solid fa-chevron-right chevron-icon"></i>
       </div>
 
-      <div class="ios-card" onclick="openChapter(4)">
+      <div class="ios-card" onclick="openChapter(4, 'data/ch04.js')">
         <div class="card-glass-symbol" style="--accent-color: #FF9F0A;"><i class="fa-solid fa-train"></i></div>
         <div class="card-details">
           <span class="chap-badge">অধ্যায় ০৪</span>
@@ -160,7 +126,7 @@
         <i class="fa-solid fa-chevron-right chevron-icon"></i>
       </div>
 
-      <div class="ios-card" onclick="openChapter(5)">
+      <div class="ios-card" onclick="openChapter(5, 'data/ch05.js')">
         <div class="card-glass-symbol" style="--accent-color: #FF375F;"><i class="fa-solid fa-scale-balanced"></i></div>
         <div class="card-details">
           <span class="chap-badge">অধ্যায় ০৫</span>
@@ -170,7 +136,7 @@
         <i class="fa-solid fa-chevron-right chevron-icon"></i>
       </div>
 
-      <div class="ios-card" onclick="openChapter(6)">
+      <div class="ios-card" onclick="openChapter(6, 'data/ch06.js')">
         <div class="card-glass-symbol" style="--accent-color: #BF5AF2;"><i class="fa-solid fa-arrow-down-1-9"></i></div>
         <div class="card-details">
           <span class="chap-badge">অধ্যায় ০৬</span>
@@ -180,7 +146,7 @@
         <i class="fa-solid fa-chevron-right chevron-icon"></i>
       </div>
 
-      <div class="ios-card" onclick="openChapter(7)">
+      <div class="ios-card" onclick="openChapter(7, 'data/ch07.js')">
         <div class="card-glass-symbol" style="--accent-color: #64D2FF;"><i class="fa-solid fa-percent"></i></div>
         <div class="card-details">
           <span class="chap-badge">অধ্যায় ০৭</span>
@@ -190,7 +156,7 @@
         <i class="fa-solid fa-chevron-right chevron-icon"></i>
       </div>
 
-      <div class="ios-card" onclick="openChapter(8)">
+      <div class="ios-card" onclick="openChapter(8, 'data/ch08.js')">
         <div class="card-glass-symbol" style="--accent-color: #FFD60A;"><i class="fa-solid fa-coins"></i></div>
         <div class="card-details">
           <span class="chap-badge">অধ্যায় ০৮</span>
@@ -200,7 +166,7 @@
         <i class="fa-solid fa-chevron-right chevron-icon"></i>
       </div>
 
-      <div class="ios-card" onclick="openChapter(9)">
+      <div class="ios-card" onclick="openChapter(9, 'data/ch09.js')">
         <div class="card-glass-symbol" style="--accent-color: #AC8E68;"><i class="fa-solid fa-ruler-combined"></i></div>
         <div class="card-details">
           <span class="chap-badge">অধ্যায় ০৯</span>
@@ -210,7 +176,7 @@
         <i class="fa-solid fa-chevron-right chevron-icon"></i>
       </div>
 
-      <div class="ios-card" onclick="openChapter(10)">
+      <div class="ios-card" onclick="openChapter(10, 'data/ch10.js')">
         <div class="card-glass-symbol" style="--accent-color: #32D74B;"><i class="fa-solid fa-square-root-variable"></i></div>
         <div class="card-details">
           <span class="chap-badge">অধ্যায় ১০</span>
@@ -220,7 +186,7 @@
         <i class="fa-solid fa-chevron-right chevron-icon"></i>
       </div>
 
-      <div class="ios-card" onclick="openChapter(11)">
+      <div class="ios-card" onclick="openChapter(11, 'data/ch11.js')">
         <div class="card-glass-symbol" style="--accent-color: #FF453A;"><i class="fa-solid fa-route"></i></div>
         <div class="card-details">
           <span class="chap-badge">অধ্যায় ১১</span>
@@ -230,7 +196,7 @@
         <i class="fa-solid fa-chevron-right chevron-icon"></i>
       </div>
 
-      <div class="ios-card" onclick="openChapter(12)">
+      <div class="ios-card" onclick="openChapter(12, 'data/ch12.js')">
         <div class="card-glass-symbol" style="--accent-color: #0A84FF;"><i class="fa-solid fa-divide"></i></div>
         <div class="card-details">
           <span class="chap-badge">অধ্যায় ১২</span>
@@ -240,7 +206,7 @@
         <i class="fa-solid fa-chevron-right chevron-icon"></i>
       </div>
 
-      <div class="ios-card" onclick="openChapter(13)">
+      <div class="ios-card" onclick="openChapter(13, 'data/ch13.js')">
         <div class="card-glass-symbol" style="--accent-color: #5E5CE6;"><i class="fa-solid fa-chart-line"></i></div>
         <div class="card-details">
           <span class="chap-badge">অধ্যায় ১৩</span>
@@ -250,7 +216,7 @@
         <i class="fa-solid fa-chevron-right chevron-icon"></i>
       </div>
 
-      <div class="ios-card" onclick="openChapter(14)">
+      <div class="ios-card" onclick="openChapter(14, 'data/ch14.js')">
         <div class="card-glass-symbol" style="--accent-color: #30D158;"><i class="fa-solid fa-bars-staggered"></i></div>
         <div class="card-details">
           <span class="chap-badge">অধ্যায় ১৪</span>
@@ -260,7 +226,7 @@
         <i class="fa-solid fa-chevron-right chevron-icon"></i>
       </div>
 
-      <div class="ios-card" onclick="openChapter(15)">
+      <div class="ios-card" onclick="openChapter(15, 'data/ch15.js')">
         <div class="card-glass-symbol" style="--accent-color: #FF9F0A;"><i class="fa-solid fa-superscript"></i></div>
         <div class="card-details">
           <span class="chap-badge">অধ্যায় ১৫</span>
@@ -270,7 +236,7 @@
         <i class="fa-solid fa-chevron-right chevron-icon"></i>
       </div>
 
-      <div class="ios-card" onclick="openChapter(16)">
+      <div class="ios-card" onclick="openChapter(16, 'data/ch16.js')">
         <div class="card-glass-symbol" style="--accent-color: #BF5AF2;"><i class="fa-solid fa-sitemap"></i></div>
         <div class="card-details">
           <span class="chap-badge">অধ্যায় ১৬</span>
@@ -280,7 +246,7 @@
         <i class="fa-solid fa-chevron-right chevron-icon"></i>
       </div>
 
-      <div class="ios-card" onclick="openChapter(17)">
+      <div class="ios-card" onclick="openChapter(17, 'data/ch17.js')">
         <div class="card-glass-symbol" style="--accent-color: #64D2FF;"><i class="fa-solid fa-arrows-split-up-and-left"></i></div>
         <div class="card-details">
           <span class="chap-badge">অধ্যায় ১৭</span>
@@ -290,7 +256,7 @@
         <i class="fa-solid fa-chevron-right chevron-icon"></i>
       </div>
 
-      <div class="ios-card" onclick="openChapter(18)">
+      <div class="ios-card" onclick="openChapter(18, 'data/ch18.js')">
         <div class="card-glass-symbol" style="--accent-color: #FFD60A;"><i class="fa-solid fa-equals"></i></div>
         <div class="card-details">
           <span class="chap-badge">অধ্যায় ১৮</span>
@@ -300,7 +266,7 @@
         <i class="fa-solid fa-chevron-right chevron-icon"></i>
       </div>
 
-      <div class="ios-card" onclick="openChapter(19)">
+      <div class="ios-card" onclick="openChapter(19, 'data/ch19.js')">
         <div class="card-glass-symbol" style="--accent-color: #FF375F;"><i class="fa-solid fa-atom"></i></div>
         <div class="card-details">
           <span class="chap-badge">অধ্যায় ১৯</span>
@@ -310,7 +276,7 @@
         <i class="fa-solid fa-chevron-right chevron-icon"></i>
       </div>
 
-      <div class="ios-card" onclick="openChapter(20)">
+      <div class="ios-card" onclick="openChapter(20, 'data/ch20.js')">
         <div class="card-glass-symbol" style="--accent-color: #AC8E68;"><i class="fa-solid fa-shapes"></i></div>
         <div class="card-details">
           <span class="chap-badge">অধ্যায় ২০</span>
@@ -320,7 +286,7 @@
         <i class="fa-solid fa-chevron-right chevron-icon"></i>
       </div>
 
-      <div class="ios-card" onclick="openChapter(21)">
+      <div class="ios-card" onclick="openChapter(21, 'data/ch21.js')">
         <div class="card-glass-symbol" style="--accent-color: #0A84FF;"><i class="fa-solid fa-draw-polygon"></i></div>
         <div class="card-details">
           <span class="chap-badge">অধ্যায় ২১</span>
@@ -330,7 +296,7 @@
         <i class="fa-solid fa-chevron-right chevron-icon"></i>
       </div>
 
-      <div class="ios-card" onclick="openChapter(22)">
+      <div class="ios-card" onclick="openChapter(22, 'data/ch22.js')">
         <div class="card-glass-symbol" style="--accent-color: #30D158;"><i class="fa-solid fa-pen-ruler"></i></div>
         <div class="card-details">
           <span class="chap-badge">অধ্যায় ২২</span>
@@ -340,7 +306,7 @@
         <i class="fa-solid fa-chevron-right chevron-icon"></i>
       </div>
 
-      <div class="ios-card" onclick="openChapter(23)">
+      <div class="ios-card" onclick="openChapter(23, 'data/ch23.js')">
         <div class="card-glass-symbol" style="--accent-color: #5E5CE6;"><i class="fa-solid fa-clipboard-question"></i></div>
         <div class="card-details">
           <span class="chap-badge">অধ্যায় ২৩</span>
@@ -350,7 +316,7 @@
         <i class="fa-solid fa-chevron-right chevron-icon"></i>
       </div>
 
-      <div class="ios-card" onclick="openChapter(24)">
+      <div class="ios-card" onclick="openChapter(24, 'data/ch24.js')">
         <div class="card-glass-symbol" style="--accent-color: #FF9F0A;"><i class="fa-solid fa-file-lines"></i></div>
         <div class="card-details">
           <span class="chap-badge">অধ্যায় ২৪</span>
@@ -361,27 +327,27 @@
       </div>
     </section>
 
-    <!-- Specific Chapter Question Presentation Container -->
+    <!-- Questions Tray -->
     <section id="chapterContentTray" class="questions-tray" style="display:none;"></section>
   </main>
 
-  <!-- Scratchpad Interactive Modal -->
+  <!-- Scratchpad Modal -->
   <div id="scratchpadModal" class="scratchpad-overlay" style="display:none;">
     <div class="scratchpad-card">
       <div class="scratchpad-header">
         <div class="scratchpad-title">
           <i class="fa-solid fa-pen-to-square"></i>
-          <span>রাফ খাতা / ক্যালকুলেশন প্যাড</span>
+          <span>রাফ খাতা</span>
         </div>
         <div class="scratchpad-tools">
-          <button class="tool-btn" onclick="clearCanvas()" title="মুছে ফেলুন"><i class="fa-solid fa-trash-can"></i></button>
-          <button class="tool-btn close" onclick="toggleScratchpad()" title="বন্ধ করুন"><i class="fa-solid fa-xmark"></i></button>
+          <button class="tool-btn" onclick="clearCanvas()"><i class="fa-solid fa-trash-can"></i></button>
+          <button class="tool-btn close" onclick="toggleScratchpad()"><i class="fa-solid fa-xmark"></i></button>
         </div>
       </div>
       <canvas id="scratchCanvas"></canvas>
     </div>
   </div>
 
-  <script src="app.js"></script>
+  <script src="app.js?v=5.0"></script>
 </body>
 </html>
