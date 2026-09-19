@@ -1,5 +1,5 @@
 /* ===================================================================
-   iOS Modern Math App Engine (Original Stable Dynamic Loader)
+   iOS Modern Math App Engine (With Full Global Math Search)
    Author: Bilas Academy Development
    =================================================================== */
 
@@ -10,7 +10,61 @@ let bookmarks = JSON.parse(localStorage.getItem('math_app_bookmarks') || '[]');
 let currentFontScale = 1.0;
 let isBookmarksOnlyView = false;
 
-// আপনার আদি ও সহজ অধ্যায় লোডার
+// ২৪টি অধ্যায়ের তালিকা (গ্লোবাল সার্চের জন্য)
+const chapterRegistry = [
+  { id: 1, name: "ঐকিক নিয়ম, সময় ও কাজ", file: "data/ch01.js" },
+  { id: 2, name: "নল ও চৌবাচ্চা", file: "data/ch02.js" },
+  { id: 3, name: "নৌকা ও স্রোত", file: "data/ch03.js" },
+  { id: 4, name: "ট্রেন", file: "data/ch04.js" },
+  { id: 5, name: "অনুপাত, মিশ্রণ ও বয়স", file: "data/ch05.js" },
+  { id: 6, name: "সংখ্যার সমীকরণ", file: "data/ch06.js" },
+  { id: 7, name: "শতকরা হিসাব, লাভ-ক্ষতি", file: "data/ch07.js" },
+  { id: 8, name: "মুনাফা আসল", file: "data/ch08.js" },
+  { id: 9, name: "পরিমাপ", file: "data/ch09.js" },
+  { id: 10, name: "সরল ও দ্বিপদী সমীকরণ", file: "data/ch10.js" },
+  { id: 11, name: "দূরত্ব", file: "data/ch11.js" },
+  { id: 12, name: "ভগ্নাংশ", file: "data/ch12.js" },
+  { id: 13, name: "গড়", file: "data/ch13.js" },
+  { id: 14, name: "ধারা", file: "data/ch14.js" },
+  { id: 15, name: "সরল ও মান নির্ণয়", file: "data/ch15.js" },
+  { id: 16, name: "উৎপাদক", file: "data/ch16.js" },
+  { id: 17, name: "গ.সা.গু এবং ল.সা.গু", file: "data/ch17.js" },
+  { id: 18, name: "সমীকরণ সমাধান", file: "data/ch18.js" },
+  { id: 19, name: "সূচক ও লগারিদম", file: "data/ch19.js" },
+  { id: 20, name: "বিবিধ", file: "data/ch20.js" },
+  { id: 21, name: "ত্রিকোণমিতি", file: "data/ch21.js" },
+  { id: 22, name: "জ্যামিতিক সংজ্ঞা", file: "data/ch22.js" },
+  { id: 23, name: "সংক্ষিপ্ত প্রশ্ন-উত্তর", file: "data/ch23.js" },
+  { id: 24, name: "নমুনা প্রশ্ন", file: "data/ch24.js" }
+];
+
+// ব্যাকগ্রাউন্ডে শান্তভাবে অধ্যায়গুলোর অংক ইনডেক্স করা (ব্যবহারকারী টেরও পাবে না)
+function indexChaptersSilently() {
+  chapterRegistry.forEach(ch => {
+    fetch(ch.file)
+      .then(res => {
+        if (res.ok) return res.text();
+        throw new Error('Not found');
+      })
+      .then(code => {
+        try {
+          const fn = new Function(code + '; return typeof chapterData !== "undefined" ? chapterData : null;');
+          const data = fn();
+          if (data && data.questions) {
+            allLoadedChapters[ch.id] = data;
+          }
+        } catch(e) {}
+      })
+      .catch(() => {});
+  });
+}
+
+// পেজ ওপেন হলেই ব্যাকগ্রাউন্ডে ইনডেক্স শুরু হবে
+window.addEventListener('DOMContentLoaded', () => {
+  indexChaptersSilently();
+});
+
+// আপনার আদি ও সহজ অধ্যায় লোডার (একদম অপরিবর্তিত)
 function openChapter(chapterId, filePath) {
   if (allLoadedChapters[chapterId]) {
     currentChapterData = allLoadedChapters[chapterId];
@@ -28,7 +82,6 @@ function openChapter(chapterId, filePath) {
   script.src = filePath;
 
   script.onload = () => {
-    // ফাইলে chapterData থাকলে সরাসরি নিয়ে নেবে
     if (typeof chapterData !== 'undefined' && chapterData) {
       allLoadedChapters[chapterId] = JSON.parse(JSON.stringify(chapterData));
       currentChapterData = allLoadedChapters[chapterId];
@@ -63,7 +116,7 @@ function renderChapterView() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function renderQuestionCards(questionsList, containerElement) {
+function renderQuestionCards(questionsList, containerElement, showChapterBadge = false) {
   containerElement.innerHTML = '';
   document.getElementById('questionCounter').innerText = `মোট প্রশ্ন: ${questionsList.length} টি`;
 
@@ -81,7 +134,8 @@ function renderQuestionCards(questionsList, containerElement) {
     card.className = 'math-card';
     card.id = `card-${q.id}`;
 
-    const isFav = bookmarks.includes(`ch_${currentChapterData.chapterId}_q_${q.id}`);
+    const chapId = q.parentChapterId || (currentChapterData ? currentChapterData.chapterId : 1);
+    const isFav = bookmarks.includes(`ch_${chapId}_q_${q.id}`);
 
     let practiceHTML = '';
     if (q.practice && q.practice.length > 0) {
@@ -115,12 +169,17 @@ function renderQuestionCards(questionsList, containerElement) {
       `;
     }
 
+    const chapterBadgeHTML = showChapterBadge && q.parentChapterName 
+      ? `<span class="ios-badge" style="margin-bottom:6px; display:inline-block;">${q.parentChapterName}</span>` 
+      : '';
+
     card.innerHTML = `
       <div class="question-header" onclick="toggleSolution(${q.id})">
+        ${chapterBadgeHTML}
         <div class="q-top-row">
           <div class="q-badges">
             <span class="problem-badge">${q.title}</span>
-            <button class="fav-btn ${isFav ? 'active' : ''}" onclick="toggleBookmark(${q.id}, event)">
+            <button class="fav-btn ${isFav ? 'active' : ''}" onclick="toggleBookmark(${q.id}, event, ${chapId})">
               <i class="fa-${isFav ? 'solid' : 'regular'} fa-star"></i>
             </button>
           </div>
@@ -131,7 +190,6 @@ function renderQuestionCards(questionsList, containerElement) {
         <div class="question-text">${q.question}</div>
       </div>
 
-      <!-- উত্তরের বডিতে চাপ দিলেও হাইড হবে -->
       <div id="sol-${q.id}" class="solution-panel" onclick="toggleSolution(${q.id})" style="display: none;">
         <div class="sol-tag-row">
           <span class="sol-tag"><i class="fa-solid fa-check-double"></i> পূর্ণাঙ্গ সমাধান</span>
@@ -200,9 +258,15 @@ function goBackToIndex() {
 
   const cards = document.querySelectorAll('.ios-card');
   cards.forEach(c => c.style.display = 'flex');
+  
+  // ক্লিয়ার করা সার্চ রেজাল্ট যদি থাকে
+  const oldResults = document.getElementById('searchResultBox');
+  if (oldResults) oldResults.remove();
+
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+// আসল গ্লোবাল সার্চ লজিক
 function onSearchInput(val) {
   const query = val.trim().toLowerCase();
   const clearBtn = document.getElementById('clearSearchBtn');
@@ -210,13 +274,79 @@ function onSearchInput(val) {
 
   const isIndexView = document.getElementById('chapterContentTray').style.display === 'none';
 
+  if (!query) {
+    if (isIndexView) {
+      const cards = document.querySelectorAll('.ios-card');
+      cards.forEach(c => c.style.display = 'flex');
+      const oldResults = document.getElementById('searchResultBox');
+      if (oldResults) oldResults.remove();
+    } else {
+      renderQuestionCards(currentQuestions, document.getElementById('chapterContentTray'));
+    }
+    return;
+  }
+
   if (isIndexView) {
+    // ১. অধ্যায়ের নাম ফিল্টার করা
     const cards = document.querySelectorAll('.ios-card');
     cards.forEach(card => {
       const text = card.innerText.toLowerCase();
       card.style.display = text.includes(query) ? 'flex' : 'none';
     });
+
+    // ২. সব অধ্যায়ের অংকের মধ্যে খোঁজ করা
+    const matchedQuestions = [];
+    Object.keys(allLoadedChapters).forEach(chId => {
+      const chap = allLoadedChapters[chId];
+      if (chap && chap.questions) {
+        chap.questions.forEach(q => {
+          const inQuestion = q.question && q.question.toLowerCase().includes(query);
+          const inTitle = q.title && q.title.toLowerCase().includes(query);
+          const inSol = q.solution && q.solution.toLowerCase().includes(query);
+          
+          let inPractice = false;
+          if (q.practice) {
+            inPractice = q.practice.some(p => {
+              const pText = typeof p === 'object' ? (p.question + ' ' + p.solution) : p;
+              return pText.toLowerCase().includes(query);
+            });
+          }
+
+          if (inQuestion || inTitle || inSol || inPractice) {
+            matchedQuestions.push({
+              ...q,
+              parentChapterId: chap.chapterId,
+              parentChapterName: chap.chapterName
+            });
+          }
+        });
+      }
+    });
+
+    // রেজাল্ট দেখানোর কন্টেইনার
+    let searchResultBox = document.getElementById('searchResultBox');
+    if (!searchResultBox) {
+      searchResultBox = document.createElement('div');
+      searchResultBox.id = 'searchResultBox';
+      searchResultBox.style.marginBottom = '20px';
+      const bodyMain = document.querySelector('.ios-body');
+      bodyMain.insertBefore(searchResultBox, document.getElementById('chapterIndexGrid'));
+    }
+
+    if (matchedQuestions.length > 0) {
+      searchResultBox.innerHTML = `
+        <div style="font-size: 0.85rem; font-weight: 700; color: var(--ios-blue); margin-bottom: 10px; display:flex; align-items:center; gap:6px;">
+          <i class="fa-solid fa-magnifying-glass"></i> "${query}" সম্পর্কিত ${matchedQuestions.length}টি অংক পাওয়া গেছে:
+        </div>
+        <div id="searchInnerCards"></div>
+      `;
+      renderQuestionCards(matchedQuestions, document.getElementById('searchInnerCards'), true);
+    } else {
+      searchResultBox.innerHTML = '';
+    }
+
   } else {
+    // নির্দিষ্ট অধ্যায়ের ভেতরে সার্চ
     const filtered = currentQuestions.filter(q => 
       q.title.toLowerCase().includes(query) || 
       q.question.toLowerCase().includes(query) ||
@@ -232,9 +362,10 @@ function clearSearch() {
   onSearchInput('');
 }
 
-function toggleBookmark(questionId, event) {
+function toggleBookmark(questionId, event, chapterId) {
   event.stopPropagation();
-  const key = `ch_${currentChapterData.chapterId}_q_${questionId}`;
+  const chapId = chapterId || (currentChapterData ? currentChapterData.chapterId : 1);
+  const key = `ch_${chapId}_q_${questionId}`;
   const index = bookmarks.indexOf(key);
 
   if (index > -1) {
@@ -277,7 +408,7 @@ function adjustFontSize(delta) {
   document.documentElement.style.setProperty('--math-font-size', `${currentFontScale}rem`);
 }
 
-// Scratchpad
+// Scratchpad Engine
 const canvas = document.getElementById('scratchCanvas');
 const ctx = canvas.getContext('2d');
 let isDrawing = false;
