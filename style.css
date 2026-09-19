@@ -1,0 +1,680 @@
+/* ===================================================================
+   iOS 18 Dark Modern Fluid Theme for Math Preparation App
+   Colors: Apple Dark System Palette (Deep Jet Black, Glass Acrylics)
+   Fonts: Inter + Noto Sans Bengali for crisp Bengali & Digits
+   =================================================================== */
+
+:root {
+  --ios-bg: #000000;
+  --ios-card-bg: rgba(28, 28, 30, 0.75);
+  --ios-card-border: rgba(255, 255, 255, 0.12);
+  --ios-card-hover: rgba(44, 44, 46, 0.85);
+  
+  --ios-text-primary: #FFFFFF;
+  --ios-text-secondary: #8E8E93;
+  --ios-text-tertiary: #636366;
+  
+  --ios-blue: #0A84FF;
+  --ios-green: #30D158;
+  --ios-indigo: #5E5CE6;
+  --ios-orange: #FF9F0A;
+  --ios-pink: #FF375F;
+  --ios-purple: #BF5AF2;
+  --ios-teal: #64D2FF;
+  --ios-yellow: #FFD60A;
+
+  --ios-blur: blur(25px);
+  --ios-radius: 18px;
+  --ios-card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+  --math-font-size: 1.05rem;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: 'Noto Sans Bengali', 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+  background-color: var(--ios-bg);
+  color: var(--ios-text-primary);
+  min-height: 100vh;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* iOS Glass Navbar */
+.ios-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(18, 18, 18, 0.75);
+  backdrop-filter: var(--ios-blur);
+  -webkit-backdrop-filter: var(--ios-blur);
+  border-bottom: 1px solid var(--ios-card-border);
+  padding: 14px 20px;
+}
+
+.nav-container {
+  max-width: 980px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ios-back-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--ios-card-border);
+  color: var(--ios-blue);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 7px 14px;
+  border-radius: 9999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ios-back-btn:hover {
+  background: rgba(10, 132, 255, 0.2);
+  transform: translateX(-3px);
+}
+
+.ios-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--ios-blue);
+  background: rgba(10, 132, 255, 0.15);
+  padding: 2px 8px;
+  border-radius: 6px;
+  margin-bottom: 3px;
+}
+
+.nav-titles h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--ios-text-primary);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ios-icon-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--ios-card-border);
+  color: var(--ios-text-primary);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ios-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.ios-icon-btn.active {
+  background: var(--ios-yellow);
+  color: #000;
+  border-color: var(--ios-yellow);
+}
+
+.ios-stepper {
+  display: flex;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--ios-card-border);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.ios-stepper button {
+  background: transparent;
+  border: none;
+  color: var(--ios-text-primary);
+  padding: 6px 12px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.15s;
+}
+
+.ios-stepper button:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Main Body Structure */
+.ios-body {
+  max-width: 980px;
+  margin: 20px auto 60px auto;
+  padding: 0 16px;
+}
+
+/* Spotlight Search Bar */
+.ios-search-wrapper {
+  margin-bottom: 24px;
+}
+
+.ios-search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(28, 28, 30, 0.85);
+  backdrop-filter: var(--ios-blur);
+  -webkit-backdrop-filter: var(--ios-blur);
+  border: 1px solid var(--ios-card-border);
+  border-radius: 16px;
+  padding: 4px 16px;
+  box-shadow: var(--ios-card-shadow);
+  transition: all 0.25s ease;
+}
+
+.ios-search-box:focus-within {
+  border-color: var(--ios-blue);
+  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.25);
+}
+
+.search-icon {
+  color: var(--ios-text-secondary);
+  font-size: 1.1rem;
+  margin-right: 12px;
+}
+
+.ios-search-box input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--ios-text-primary);
+  font-size: 1rem;
+  padding: 12px 0;
+  font-family: inherit;
+}
+
+.ios-search-box input::placeholder {
+  color: var(--ios-text-tertiary);
+}
+
+#clearSearchBtn {
+  background: transparent;
+  border: none;
+  color: var(--ios-text-secondary);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 4px;
+}
+
+/* Toolbar Panel inside Chapter View */
+.ios-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(28, 28, 30, 0.6);
+  border: 1px solid var(--ios-card-border);
+  border-radius: 14px;
+  padding: 12px 18px;
+  margin-bottom: 20px;
+}
+
+.toolbar-stat {
+  font-size: 0.9rem;
+  color: var(--ios-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.toolbar-stat i {
+  color: var(--ios-blue);
+}
+
+.toolbar-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.ios-pill-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--ios-card-border);
+  color: var(--ios-text-primary);
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.ios-pill-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--ios-blue);
+}
+
+/* Chapter Index Grid */
+.ios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 16px;
+}
+
+.ios-card {
+  background: var(--ios-card-bg);
+  backdrop-filter: var(--ios-blur);
+  -webkit-backdrop-filter: var(--ios-blur);
+  border: 1px solid var(--ios-card-border);
+  border-radius: var(--ios-radius);
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  box-shadow: var(--ios-card-shadow);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.ios-card:hover {
+  background: var(--ios-card-hover);
+  transform: translateY(-4px) scale(1.01);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.card-glass-symbol {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  color: var(--accent-color, var(--ios-blue));
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.card-details {
+  flex-grow: 1;
+}
+
+.chap-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--ios-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-details h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ios-text-primary);
+  margin-top: 2px;
+}
+
+.chap-sub {
+  font-size: 0.8rem;
+  color: var(--ios-text-tertiary);
+  margin-top: 2px;
+}
+
+.chevron-icon {
+  color: var(--ios-text-tertiary);
+  font-size: 0.9rem;
+  transition: transform 0.2s ease;
+}
+
+.ios-card:hover .chevron-icon {
+  color: var(--ios-blue);
+  transform: translateX(4px);
+}
+
+/* Question Math Card */
+.math-card {
+  background: var(--ios-card-bg);
+  backdrop-filter: var(--ios-blur);
+  -webkit-backdrop-filter: var(--ios-blur);
+  border: 1px solid var(--ios-card-border);
+  border-radius: var(--ios-radius);
+  margin-bottom: 20px;
+  box-shadow: var(--ios-card-shadow);
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.math-card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.question-header {
+  padding: 22px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.q-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.q-badges {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.problem-badge {
+  background: linear-gradient(135deg, var(--ios-blue), var(--ios-indigo));
+  color: #fff;
+  padding: 3px 12px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.fav-btn {
+  background: transparent;
+  border: none;
+  color: var(--ios-text-tertiary);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.fav-btn.active {
+  color: var(--ios-yellow);
+  transform: scale(1.15);
+}
+
+.toggle-chip {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ios-blue);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(10, 132, 255, 0.12);
+  padding: 5px 12px;
+  border-radius: 9999px;
+  transition: all 0.2s;
+}
+
+.question-text {
+  font-size: var(--math-font-size);
+  line-height: 1.85;
+  font-weight: 500;
+  color: var(--ios-text-primary);
+}
+
+/* Solution Display Panel */
+.solution-panel {
+  padding: 24px;
+  background: rgba(18, 18, 20, 0.9);
+  border-top: 1px dashed var(--ios-card-border);
+}
+
+.sol-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(48, 209, 88, 0.15);
+  color: var(--ios-green);
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  border: 1px solid rgba(48, 209, 88, 0.25);
+}
+
+.solution-content {
+  font-size: var(--math-font-size);
+  line-height: 2.3;
+  color: #E5E5EA;
+}
+
+.divider-line {
+  display: block;
+  width: 100%;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+  margin: 14px 0;
+}
+
+/* Practice & Previous Year Questions */
+.practice-section {
+  margin-top: 24px;
+  background: rgba(94, 92, 230, 0.08);
+  border: 1px solid rgba(94, 92, 230, 0.25);
+  border-radius: 14px;
+  padding: 16px 20px;
+}
+
+.practice-head {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--ios-indigo);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.practice-item {
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border-left: 3px solid var(--ios-indigo);
+  border-radius: 0 10px 10px 0;
+}
+
+.practice-item:last-child {
+  margin-bottom: 0;
+}
+
+.practice-q-text {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #F2F2F7;
+  margin-bottom: 10px;
+}
+
+.practice-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.practice-toggle-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--ios-card-border);
+  color: #D1D1D6;
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.practice-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+}
+
+.ai-solve-btn {
+  background: linear-gradient(135deg, #8B5CF6, #6D28D9);
+  color: white;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: opacity 0.2s;
+}
+
+.ai-solve-btn:hover {
+  opacity: 0.9;
+}
+
+.practice-sol-box {
+  margin-top: 10px;
+  padding: 12px 14px;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 10px;
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  font-size: 0.92rem;
+  line-height: 2.1;
+  color: #E5E5EA;
+}
+
+.ai-result-panel {
+  margin-top: 10px;
+  padding: 14px;
+  background: rgba(139, 92, 246, 0.12);
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  border-radius: 12px;
+}
+
+.ai-badge {
+  color: #C4B5FD;
+  font-weight: 700;
+  font-size: 0.82rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.ai-content {
+  color: #F3F4F6;
+  line-height: 2.2;
+  font-size: 0.95rem;
+}
+
+/* Global Search Results Tray */
+.search-results-tray {
+  margin-bottom: 24px;
+}
+
+.search-title-banner {
+  font-size: 0.95rem;
+  color: var(--ios-text-secondary);
+  margin-bottom: 14px;
+}
+
+/* Scratchpad Interactive Modal */
+.scratchpad-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: var(--ios-blur);
+  -webkit-backdrop-filter: var(--ios-blur);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.scratchpad-card {
+  width: 100%;
+  max-width: 850px;
+  height: 80vh;
+  background: #1C1C1E;
+  border: 1px solid var(--ios-card-border);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+}
+
+.scratchpad-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: #2C2C2E;
+  border-bottom: 1px solid var(--ios-card-border);
+}
+
+.scratchpad-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  color: var(--ios-text-primary);
+}
+
+.scratchpad-tools {
+  display: flex;
+  gap: 10px;
+}
+
+.tool-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: var(--ios-text-primary);
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tool-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.tool-btn.close:hover {
+  background: var(--ios-pink);
+}
+
+#scratchCanvas {
+  flex: 1;
+  width: 100%;
+  background: #121212;
+  cursor: crosshair;
+  touch-action: none;
+}
