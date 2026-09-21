@@ -1,13 +1,8 @@
+/* ----------------------------------------------------
+   THEME VARIABLES (Light, Dark & Auto Device Detection)
+---------------------------------------------------- */
 :root {
-  --ios-bg: #000000;
-  --ios-card-bg: rgba(28, 28, 30, 0.78);
-  --ios-card-border: rgba(255, 255, 255, 0.12);
-  --ios-card-hover: rgba(44, 44, 46, 0.88);
-  
-  --ios-text-primary: #FFFFFF;
-  --ios-text-secondary: #8E8E93;
-  --ios-text-tertiary: #636366;
-  
+  /* Default Accent Colors */
   --ios-blue: #0A84FF;
   --ios-green: #30D158;
   --ios-indigo: #5E5CE6;
@@ -19,10 +14,93 @@
 
   --ios-blur: blur(25px);
   --ios-radius: 18px;
-  --ios-card-shadow: 0 8px 30px rgba(0, 0, 0, 0.65);
   --math-font-size: 1rem;
 }
 
+/* Light Theme Variables */
+:root[data-theme="light"] {
+  --ios-bg: #F2F2F7;
+  --ios-navbar-bg: rgba(242, 242, 247, 0.88);
+  --ios-card-bg: #FFFFFF;
+  --ios-card-border: rgba(60, 60, 67, 0.14);
+  --ios-card-hover: #F2F2F7;
+  --ios-search-bg: rgba(255, 255, 255, 0.95);
+  --ios-sol-bg: #F9F9FB;
+  --ios-sol-text: #1C1C1E;
+  --ios-practice-bg: rgba(94, 92, 230, 0.06);
+  --ios-scratch-bg: #FFFFFF;
+  --ios-scratch-header: #E5E5EA;
+
+  --ios-text-primary: #000000;
+  --ios-text-secondary: #6C6C70;
+  --ios-text-tertiary: #8E8E93;
+  --ios-card-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Dark Theme Variables */
+:root[data-theme="dark"] {
+  --ios-bg: #000000;
+  --ios-navbar-bg: rgba(18, 18, 18, 0.88);
+  --ios-card-bg: rgba(28, 28, 30, 0.78);
+  --ios-card-border: rgba(255, 255, 255, 0.12);
+  --ios-card-hover: rgba(44, 44, 46, 0.88);
+  --ios-search-bg: rgba(28, 28, 30, 0.85);
+  --ios-sol-bg: rgba(16, 16, 18, 0.95);
+  --ios-sol-text: #E5E5EA;
+  --ios-practice-bg: rgba(94, 92, 230, 0.08);
+  --ios-scratch-bg: #121212;
+  --ios-scratch-header: #2C2C2E;
+
+  --ios-text-primary: #FFFFFF;
+  --ios-text-secondary: #8E8E93;
+  --ios-text-tertiary: #636366;
+  --ios-card-shadow: 0 8px 30px rgba(0, 0, 0, 0.65);
+}
+
+/* Auto / Device Default Mode */
+@media (prefers-color-scheme: light) {
+  :root[data-theme="auto"] {
+    --ios-bg: #F2F2F7;
+    --ios-navbar-bg: rgba(242, 242, 247, 0.88);
+    --ios-card-bg: #FFFFFF;
+    --ios-card-border: rgba(60, 60, 67, 0.14);
+    --ios-card-hover: #F2F2F7;
+    --ios-search-bg: rgba(255, 255, 255, 0.95);
+    --ios-sol-bg: #F9F9FB;
+    --ios-sol-text: #1C1C1E;
+    --ios-practice-bg: rgba(94, 92, 230, 0.06);
+    --ios-scratch-bg: #FFFFFF;
+    --ios-scratch-header: #E5E5EA;
+
+    --ios-text-primary: #000000;
+    --ios-text-secondary: #6C6C70;
+    --ios-text-tertiary: #8E8E93;
+    --ios-card-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="auto"] {
+    --ios-bg: #000000;
+    --ios-navbar-bg: rgba(18, 18, 18, 0.88);
+    --ios-card-bg: rgba(28, 28, 30, 0.78);
+    --ios-card-border: rgba(255, 255, 255, 0.12);
+    --ios-card-hover: rgba(44, 44, 46, 0.88);
+    --ios-search-bg: rgba(28, 28, 30, 0.85);
+    --ios-sol-bg: rgba(16, 16, 18, 0.95);
+    --ios-sol-text: #E5E5EA;
+    --ios-practice-bg: rgba(94, 92, 230, 0.08);
+    --ios-scratch-bg: #121212;
+    --ios-scratch-header: #2C2C2E;
+
+    --ios-text-primary: #FFFFFF;
+    --ios-text-secondary: #8E8E93;
+    --ios-text-tertiary: #636366;
+    --ios-card-shadow: 0 8px 30px rgba(0, 0, 0, 0.65);
+  }
+}
+
+/* Base Styles */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -37,18 +115,20 @@ body {
   min-height: 100vh;
   line-height: 1.6;
   overflow-x: hidden;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-/* iOS Navbar - একদম স্লিম ও মোবাইলের জন্য পারফেক্ট */
+/* iOS Navbar */
 .ios-navbar {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(18, 18, 18, 0.9);
+  background: var(--ios-navbar-bg);
   backdrop-filter: var(--ios-blur);
   -webkit-backdrop-filter: var(--ios-blur);
   border-bottom: 1px solid var(--ios-card-border);
   padding: 8px 12px;
+  transition: background 0.25s ease;
 }
 
 .nav-container {
@@ -69,7 +149,7 @@ body {
 }
 
 .ios-back-btn {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--ios-card-bg);
   border: 1px solid var(--ios-card-border);
   color: var(--ios-blue);
   font-weight: 600;
@@ -115,7 +195,7 @@ body {
 }
 
 .ios-icon-btn {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--ios-card-bg);
   border: 1px solid var(--ios-card-border);
   color: var(--ios-text-primary);
   width: 32px;
@@ -126,6 +206,11 @@ body {
   justify-content: center;
   font-size: 0.9rem;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ios-icon-btn:hover {
+  opacity: 0.85;
 }
 
 .ios-icon-btn.active {
@@ -135,7 +220,7 @@ body {
 
 .ios-stepper {
   display: flex;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--ios-card-bg);
   border: 1px solid var(--ios-card-border);
   border-radius: 9999px;
 }
@@ -164,7 +249,7 @@ body {
 .ios-search-box {
   display: flex;
   align-items: center;
-  background: rgba(28, 28, 30, 0.85);
+  background: var(--ios-search-bg);
   border: 1px solid var(--ios-card-border);
   border-radius: 12px;
   padding: 2px 12px;
@@ -199,7 +284,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(28, 28, 30, 0.6);
+  background: var(--ios-card-bg);
   border: 1px solid var(--ios-card-border);
   border-radius: 12px;
   padding: 8px 12px;
@@ -224,7 +309,7 @@ body {
 }
 
 .ios-pill-btn {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--ios-card-bg);
   border: 1px solid var(--ios-card-border);
   color: var(--ios-text-primary);
   padding: 4px 8px;
@@ -253,14 +338,24 @@ body {
   align-items: center;
   gap: 12px;
   cursor: pointer;
+  box-shadow: var(--ios-card-shadow);
+  transition: transform 0.15s ease, background-color 0.2s ease;
+}
+
+.ios-card:hover {
+  background: var(--ios-card-hover);
+}
+
+.ios-card:active {
+  transform: scale(0.98);
 }
 
 .card-glass-symbol {
   width: 40px;
   height: 40px;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(125, 125, 125, 0.1);
+  border: 1px solid var(--ios-card-border);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -303,6 +398,7 @@ body {
   border-radius: var(--ios-radius);
   margin-bottom: 14px;
   overflow: hidden;
+  box-shadow: var(--ios-card-shadow);
 }
 
 .question-header {
@@ -365,7 +461,7 @@ body {
 /* Solution Display - Click to Hide */
 .solution-panel {
   padding: 16px;
-  background: rgba(16, 16, 18, 0.95);
+  background: var(--ios-sol-bg);
   border-top: 1px dashed var(--ios-card-border);
   cursor: pointer;
 }
@@ -394,19 +490,19 @@ body {
 .solution-content {
   font-size: var(--math-font-size);
   line-height: 2.1;
-  color: #E5E5EA;
+  color: var(--ios-sol-text);
 }
 
 .divider-line {
   display: block;
   width: 100%;
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+  border-bottom: 1px dashed var(--ios-card-border);
   margin: 10px 0;
 }
 
 .practice-section {
   margin-top: 14px;
-  background: rgba(94, 92, 230, 0.08);
+  background: var(--ios-practice-bg);
   border: 1px solid rgba(94, 92, 230, 0.25);
   border-radius: 10px;
   padding: 12px;
@@ -425,7 +521,7 @@ body {
 .practice-item {
   margin-bottom: 10px;
   padding: 8px 10px;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(125, 125, 125, 0.05);
   border-left: 3px solid var(--ios-indigo);
   border-radius: 0 6px 6px 0;
 }
@@ -433,14 +529,14 @@ body {
 .practice-q-text {
   font-size: 0.85rem;
   line-height: 1.7;
-  color: #F2F2F7;
+  color: var(--ios-text-primary);
   margin-bottom: 6px;
 }
 
 .practice-toggle-btn {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--ios-card-bg);
   border: 1px solid var(--ios-card-border);
-  color: #D1D1D6;
+  color: var(--ios-text-secondary);
   padding: 3px 8px;
   border-radius: 5px;
   font-size: 0.75rem;
@@ -450,11 +546,11 @@ body {
 .practice-sol-box {
   margin-top: 6px;
   padding: 8px 10px;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(125, 125, 125, 0.08);
   border-radius: 6px;
   font-size: 0.85rem;
   line-height: 1.9;
-  color: #E5E5EA;
+  color: var(--ios-sol-text);
   cursor: pointer;
 }
 
@@ -462,7 +558,7 @@ body {
 .scratchpad-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(0, 0, 0, 0.65);
   z-index: 10000;
   display: flex;
   align-items: center;
@@ -474,7 +570,7 @@ body {
   width: 100%;
   max-width: 800px;
   height: 80vh;
-  background: #1C1C1E;
+  background: var(--ios-card-bg);
   border: 1px solid var(--ios-card-border);
   border-radius: 16px;
   display: flex;
@@ -487,7 +583,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 10px 14px;
-  background: #2C2C2E;
+  background: var(--ios-scratch-header);
 }
 
 .scratchpad-title {
@@ -495,6 +591,7 @@ body {
   align-items: center;
   gap: 6px;
   font-size: 0.85rem;
+  color: var(--ios-text-primary);
 }
 
 .scratchpad-tools {
@@ -503,9 +600,9 @@ body {
 }
 
 .tool-btn {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(125, 125, 125, 0.15);
   border: none;
-  color: #fff;
+  color: var(--ios-text-primary);
   width: 30px;
   height: 30px;
   border-radius: 6px;
@@ -518,7 +615,7 @@ body {
 #scratchCanvas {
   flex: 1;
   width: 100%;
-  background: #121212;
+  background: var(--ios-scratch-bg);
   cursor: crosshair;
   touch-action: none;
 }
