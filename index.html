@@ -1,24 +1,27 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="bn" data-theme="auto">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>BILAS ACCADEMY গণিত | </title>
-<!-- 🌟 ১. সোশ্যাল মিডিয়া লিংক প্রিভিউ থাম্বনেইল (Open Graph) সেটিংস -->
-    <meta property="og:title" content="গণিত | Bilas Academy Pro">
-    <meta property="og:description" content="সরকারি চাকরি পরীক্ষার অধ্যায়ভিত্তিক পূর্ণাঙ্গ গণিত সমাধান ও বিগত সালের প্রশ্ন অনুশীলন।">
-    <meta property="og:image" content="https://bbarmon26.github.io/math/cover.jpg">
-    <meta property="og:url" content="https://bbarmon26.github.io/math/">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
+  <title>BILAS ACADEMY গণিত</title>
 
-    <!-- 📱 ২. মোবাইল ব্রাউজার ও লোগো মেটা সেটিংস -->
-    <meta name="theme-color" content="#000000">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="BILAS">
-    <link rel="apple-touch-icon" href="logobacca26v2.png">
-    <link rel="icon" type="image/png" href="logobacca26v2.png">
+  <!-- 🌟 ১. সোশ্যাল মিডিয়া লিংক প্রিভিউ থাম্বনেইল (Open Graph) সেটিংস -->
+  <meta property="og:title" content="গণিত | Bilas Academy Pro">
+  <meta property="og:description" content="সরকারি চাকরি পরীক্ষার অধ্যায়ভিত্তিক পূর্ণাঙ্গ গণিত সমাধান ও বিগত সালের প্রশ্ন অনুশীলন।">
+  <meta property="og:image" content="https://bbarmon26.github.io/math/cover.jpg">
+  <meta property="og:url" content="https://bbarmon26.github.io/math/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- 📱 ২. মোবাইল ব্রাউজার ও PWA ফুলস্ক্রিন মেটা সেটিংস -->
+  <meta name="theme-color" content="#0d1117">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="BILAS">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="logobacca26v2.png">
+  <link rel="icon" type="image/png" href="logobacca26v2.png">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -54,7 +57,12 @@
         </div>
       </div>
       
-        
+      <div class="nav-right" style="display: flex; align-items: center; gap: 8px;">
+        <!-- Theme Toggle Button (Auto / Light / Dark) -->
+        <button class="ios-icon-btn" id="themeToggleBtn" onclick="cycleTheme()" title="থিম পরিবর্তন">
+          <i id="themeIcon" class="fa-solid fa-circle-half-stroke"></i>
+        </button>
+
         <button class="ios-icon-btn" id="favFilterBtn" onclick="toggleBookmarksView()" title="বুকমার্ক">
           <i class="fa-regular fa-star"></i>
         </button>
@@ -85,10 +93,9 @@
         <i class="fa-solid fa-layer-group"></i>
         <span id="questionCounter">মোট প্রশ্ন: ০</span>
       </div>
-      
     </section>
 
-    <!-- Index Grid (Original) -->
+    <!-- Index Grid -->
     <section id="chapterIndexGrid" class="ios-grid">
       <div class="ios-card" onclick="openChapter(1, 'data/ch01.js')">
         <div class="card-glass-symbol" style="--accent-color: #0A84FF;"><i class="fa-solid fa-calculator"></i></div>
@@ -335,7 +342,46 @@
     <section id="chapterContentTray" class="questions-tray" style="display:none;"></section>
   </main>
 
-
   <script src="app.js?v=5.0"></script>
+  
+  <!-- Theme Controller Script -->
+  <script>
+    const themeModes = ['auto', 'light', 'dark'];
+    let currentThemeIndex = 0;
+
+    function applyTheme(theme) {
+      const html = document.documentElement;
+      const themeIcon = document.getElementById('themeIcon');
+
+      if (theme === 'auto') {
+        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        html.setAttribute('data-theme', isDark ? 'dark' : 'light');
+        if (themeIcon) themeIcon.className = 'fa-solid fa-circle-half-stroke';
+      } else {
+        html.setAttribute('data-theme', theme);
+        if (themeIcon) {
+          themeIcon.className = theme === 'dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+        }
+      }
+      localStorage.setItem('user_theme_pref', theme);
+    }
+
+    function cycleTheme() {
+      currentThemeIndex = (currentThemeIndex + 1) % themeModes.length;
+      applyTheme(themeModes[currentThemeIndex]);
+    }
+
+    // Load saved preference
+    const savedTheme = localStorage.getItem('user_theme_pref') || 'auto';
+    currentThemeIndex = themeModes.indexOf(savedTheme) !== -1 ? themeModes.indexOf(savedTheme) : 0;
+    applyTheme(themeModes[currentThemeIndex]);
+
+    // Listen to system changes if in auto mode
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      if (themeModes[currentThemeIndex] === 'auto') {
+        applyTheme('auto');
+      }
+    });
+  </script>
 </body>
 </html>
