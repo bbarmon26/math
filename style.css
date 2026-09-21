@@ -1,0 +1,524 @@
+:root {
+  --ios-bg: #000000;
+  --ios-card-bg: rgba(28, 28, 30, 0.78);
+  --ios-card-border: rgba(255, 255, 255, 0.12);
+  --ios-card-hover: rgba(44, 44, 46, 0.88);
+  
+  --ios-text-primary: #FFFFFF;
+  --ios-text-secondary: #8E8E93;
+  --ios-text-tertiary: #636366;
+  
+  --ios-blue: #0A84FF;
+  --ios-green: #30D158;
+  --ios-indigo: #5E5CE6;
+  --ios-orange: #FF9F0A;
+  --ios-pink: #FF375F;
+  --ios-purple: #BF5AF2;
+  --ios-teal: #64D2FF;
+  --ios-yellow: #FFD60A;
+
+  --ios-blur: blur(25px);
+  --ios-radius: 18px;
+  --ios-card-shadow: 0 8px 30px rgba(0, 0, 0, 0.65);
+  --math-font-size: 1rem;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: 'Noto Sans Bengali', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--ios-bg);
+  color: var(--ios-text-primary);
+  min-height: 100vh;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* iOS Navbar - একদম স্লিম ও মোবাইলের জন্য পারফেক্ট */
+.ios-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(18, 18, 18, 0.9);
+  backdrop-filter: var(--ios-blur);
+  -webkit-backdrop-filter: var(--ios-blur);
+  border-bottom: 1px solid var(--ios-card-border);
+  padding: 8px 12px;
+}
+
+.nav-container {
+  max-width: 980px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex: 1;
+}
+
+.ios-back-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--ios-card-border);
+  color: var(--ios-blue);
+  font-weight: 600;
+  font-size: 0.8rem;
+  padding: 5px 10px;
+  border-radius: 9999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.nav-titles {
+  min-width: 0;
+  flex: 1;
+}
+
+.ios-badge {
+  display: inline-block;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--ios-blue);
+  background: rgba(10, 132, 255, 0.15);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+.nav-titles h1 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ios-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.ios-icon-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--ios-card-border);
+  color: var(--ios-text-primary);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.ios-icon-btn.active {
+  background: var(--ios-yellow);
+  color: #000;
+}
+
+.ios-stepper {
+  display: flex;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--ios-card-border);
+  border-radius: 9999px;
+}
+
+.ios-stepper button {
+  background: transparent;
+  border: none;
+  color: var(--ios-text-primary);
+  padding: 4px 7px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.75rem;
+}
+
+/* Layout */
+.ios-body {
+  max-width: 980px;
+  margin: 12px auto 60px auto;
+  padding: 0 12px;
+}
+
+.ios-search-wrapper {
+  margin-bottom: 14px;
+}
+
+.ios-search-box {
+  display: flex;
+  align-items: center;
+  background: rgba(28, 28, 30, 0.85);
+  border: 1px solid var(--ios-card-border);
+  border-radius: 12px;
+  padding: 2px 12px;
+}
+
+.search-icon {
+  color: var(--ios-text-secondary);
+  font-size: 0.9rem;
+  margin-right: 8px;
+}
+
+.ios-search-box input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--ios-text-primary);
+  font-size: 0.9rem;
+  padding: 8px 0;
+  font-family: inherit;
+}
+
+#clearSearchBtn {
+  background: transparent;
+  border: none;
+  color: var(--ios-text-secondary);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.ios-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(28, 28, 30, 0.6);
+  border: 1px solid var(--ios-card-border);
+  border-radius: 12px;
+  padding: 8px 12px;
+  margin-bottom: 14px;
+}
+
+.toolbar-stat {
+  font-size: 0.8rem;
+  color: var(--ios-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.toolbar-stat i {
+  color: var(--ios-blue);
+}
+
+.toolbar-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.ios-pill-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--ios-card-border);
+  color: var(--ios-text-primary);
+  padding: 4px 8px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Grid */
+.ios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.ios-card {
+  background: var(--ios-card-bg);
+  border: 1px solid var(--ios-card-border);
+  border-radius: var(--ios-radius);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.card-glass-symbol {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: var(--accent-color, var(--ios-blue));
+  flex-shrink: 0;
+}
+
+.card-details {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.chap-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--ios-text-secondary);
+}
+
+.card-details h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ios-text-primary);
+}
+
+.chap-sub {
+  font-size: 0.75rem;
+  color: var(--ios-text-tertiary);
+}
+
+.chevron-icon {
+  color: var(--ios-text-tertiary);
+  font-size: 0.8rem;
+}
+
+/* Math Cards */
+.math-card {
+  background: var(--ios-card-bg);
+  border: 1px solid var(--ios-card-border);
+  border-radius: var(--ios-radius);
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+
+.question-header {
+  padding: 14px 16px;
+  cursor: pointer;
+}
+
+.q-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.q-badges {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.problem-badge {
+  background: linear-gradient(135deg, var(--ios-blue), var(--ios-indigo));
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.fav-btn {
+  background: transparent;
+  border: none;
+  color: var(--ios-text-tertiary);
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.fav-btn.active {
+  color: var(--ios-yellow);
+}
+
+.toggle-chip {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ios-blue);
+  background: rgba(10, 132, 255, 0.12);
+  padding: 3px 8px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.question-text {
+  font-size: var(--math-font-size);
+  line-height: 1.8;
+  color: var(--ios-text-primary);
+}
+
+/* Solution Display - Click to Hide */
+.solution-panel {
+  padding: 16px;
+  background: rgba(16, 16, 18, 0.95);
+  border-top: 1px dashed var(--ios-card-border);
+  cursor: pointer;
+}
+
+.sol-tag-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.sol-tag {
+  background: rgba(48, 209, 88, 0.15);
+  color: var(--ios-green);
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.sol-close-hint {
+  font-size: 0.7rem;
+  color: var(--ios-text-tertiary);
+}
+
+.solution-content {
+  font-size: var(--math-font-size);
+  line-height: 2.1;
+  color: #E5E5EA;
+}
+
+.divider-line {
+  display: block;
+  width: 100%;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+  margin: 10px 0;
+}
+
+.practice-section {
+  margin-top: 14px;
+  background: rgba(94, 92, 230, 0.08);
+  border: 1px solid rgba(94, 92, 230, 0.25);
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.practice-head {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--ios-indigo);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.practice-item {
+  margin-bottom: 10px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border-left: 3px solid var(--ios-indigo);
+  border-radius: 0 6px 6px 0;
+}
+
+.practice-q-text {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: #F2F2F7;
+  margin-bottom: 6px;
+}
+
+.practice-toggle-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--ios-card-border);
+  color: #D1D1D6;
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.practice-sol-box {
+  margin-top: 6px;
+  padding: 8px 10px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 6px;
+  font-size: 0.85rem;
+  line-height: 1.9;
+  color: #E5E5EA;
+  cursor: pointer;
+}
+
+/* Scratchpad */
+.scratchpad-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+.scratchpad-card {
+  width: 100%;
+  max-width: 800px;
+  height: 80vh;
+  background: #1C1C1E;
+  border: 1px solid var(--ios-card-border);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.scratchpad-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: #2C2C2E;
+}
+
+.scratchpad-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+}
+
+.scratchpad-tools {
+  display: flex;
+  gap: 6px;
+}
+
+.tool-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #fff;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+#scratchCanvas {
+  flex: 1;
+  width: 100%;
+  background: #121212;
+  cursor: crosshair;
+  touch-action: none;
+}

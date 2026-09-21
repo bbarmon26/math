@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>BILAS ACCADEMY গণিত | </title>
+<!-- 🌟 ১. সোশ্যাল মিডিয়া লিংক প্রিভিউ থাম্বনেইল (Open Graph) সেটিংস -->
+    <meta property="og:title" content="গণিত | Bilas Academy Pro">
+    <meta property="og:description" content="সরকারি চাকরি পরীক্ষার অধ্যায়ভিত্তিক পূর্ণাঙ্গ গণিত সমাধান ও বিগত সালের প্রশ্ন অনুশীলন।">
+    <meta property="og:image" content="https://bbarmon26.github.io/math/cover.jpg">
+    <meta property="og:url" content="https://bbarmon26.github.io/math/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- 📱 ২. মোবাইল ব্রাউজার ও লোগো মেটা সেটিংস -->
+    <meta name="theme-color" content="#000000">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="BILAS">
+    <link rel="apple-touch-icon" href="logobacca26v2.png">
+    <link rel="icon" type="image/png" href="logobacca26v2.png">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css?v=5.0">
+  
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+<body>
+
+  <!-- iOS Navbar -->
+  <header class="ios-navbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <button id="navBackBtn" class="ios-back-btn" onclick="goBackToIndex()" style="display: none;">
+          <i class="fa-solid fa-chevron-left"></i>
+          <span></span>
+        </button>
+        <div class="nav-titles">
+          <span class="ios-badge">Bilas Academy</span>
+          <h1 id="pageMainTitle">গণিত প্রস্তুতি</h1>
+        </div>
+      </div>
+      
+        
+        <button class="ios-icon-btn" id="favFilterBtn" onclick="toggleBookmarksView()" title="বুকমার্ক">
+          <i class="fa-regular fa-star"></i>
+        </button>
+        
+        <div class="ios-stepper" id="fontControls" style="display: none;">
+          <button onclick="adjustFontSize(-1)">A-</button>
+          <button onclick="adjustFontSize(1)">A+</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="ios-body">
+    <!-- Search Bar -->
+    <div class="ios-search-wrapper">
+      <div class="ios-search-box">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="spotlightSearch" placeholder="যেকোনো অধ্যায় বা অংকের প্রশ্ন খুঁজুন..." oninput="onSearchInput(this.value)">
+        <button id="clearSearchBtn" onclick="clearSearch()" style="display: none;">
+          <i class="fa-solid fa-circle-xmark"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Chapter Toolbar -->
+    <section id="chapterToolbar" class="ios-toolbar" style="display: none;">
+      <div class="toolbar-stat">
+        <i class="fa-solid fa-layer-group"></i>
+        <span id="questionCounter">মোট প্রশ্ন: ০</span>
+      </div>
+      
+    </section>
+
+    <!-- Index Grid (Original) -->
+    <section id="chapterIndexGrid" class="ios-grid">
+      <div class="ios-card" onclick="openChapter(1, 'data/ch01.js')">
+        <div class="card-glass-symbol" style="--accent-color: #0A84FF;"><i class="fa-solid fa-calculator"></i></div>
+        <div class="card-details">
+          <span class="chap-badge">অধ্যায় ০১</span>
+          <h3>ঐকিক নিয়ম, সময় ও কাজ</h3>
+          <p class="chap-sub">সমস্যা সমাধান ও বিগত সালের প্রশ্ন</p>
+        </div>
+        <i class="fa-solid fa-chevron-right chevron-icon"></i>
+      </div>
+
+      <div class="ios-card" onclick="openChapter(2, 'data/ch02.js')">
+        <div class="card-glass-symbol" style="--accent-color: #30D158;"><i class="fa-solid fa-faucet-drip"></i></div>
+        <div class="card-details">
+          <span class="chap-badge">অধ্যায় ০২</span>
+          <h3>নল ও চৌবাচ্চা</h3>
+          <p class="chap-sub">সমস্যা সমাধান ও বিগত সালের প্রশ্ন</p>
+        </div>
+        <i class="fa-solid fa-chevron-right chevron-icon"></i>
+      </div>
+
+      <div class="ios-card" onclick="openChapter(3, 'data/ch03.js')">
+        <div class="card-glass-symbol" style="--accent-color: #5E5CE6;"><i class="fa-solid fa-sailboat"></i></div>
+        <div class="card-details">
+          <span class="chap-badge">অধ্যায় ০৩</span>
+          <h3>নৌকা ও স্রোত</h3>
+          <p class="chap-sub">সমস্যা সমাধান ও বিগত সালের প্রশ্ন</p>
+        </div>
+        <i class="fa-solid fa-chevron-right chevron-icon"></i>
+      </div>
+
+      <div class="ios-card" onclick="openChapter(4, 'data/ch04.js')">
+        <div class="card-glass-symbol" style="--accent-color: #FF9F0A;"><i class="fa-solid fa-train"></i></div>
+        <div class="card-details">
+          <span class="chap-badge">অধ্যায় ০৪</span>
+          <h3>ট্রেন</h3>
+          <p class="chap-sub">সমস্যা সমাধান ও বিগত সালের প্রশ্ন</p>
+        </div>
+        <i class="fa-solid fa-chevron-right chevron-icon"></i>
+      </div>
+
+      <div class="ios-card" onclick="openChapter(5, 'data/ch05.js')">
+        <div class="card-glass-symbol" style="--accent-color: #FF375F;"><i class="fa-solid fa-scale-balanced"></i></div>
+        <div class="card-details">
+          <span class="chap-badge">অধ্যায় ০৫</span>
+          <h3>অনুপাত, মিশ্রণ ও বয়স</h3>
+          <p class="chap-sub">সমস্যা সমাধান ও বিগত সালের প্রশ্ন</p>
+        </div>
+        <i class="fa-solid fa-chevron-right chevron-icon"></i>
+      </div>
+
+      <div class="ios-card" onclick="openChapter(6, 'data/ch06.js')">
+        <div class="card-glass-symbol" style="--accent-color: #BF5AF2;"><i class="fa-solid fa-arrow-down-1-9"></i></div>
+        <div class="card-details">
+          <span class="chap-badge">অধ্যায় ০৬</span>
+          <h3>সংখ্যার সমীকরণ</h3>
+          <p class="chap-sub">সমস্যা সমাধান ও বিগত সালের প্রশ্ন</p>
+        </div>
+        <i class="fa-solid fa-chevron-right chevron-icon"></i>
+      </div>
+
+      <div class="ios-card" onclick="openChapter(7, 'data/ch07.js')">
+        <div class="card-glass-symbol" style="--accent-color: #64D2FF;"><i class="fa-solid fa-percent"></i></div>
+        <div class="card-details">
+          <span class="chap-badge">অধ্যায় ০৭</span>
+          <h3>শতকরা হিসাব, লাভ-ক্ষতি</h3>
+          <p class="chap-sub">সমস্যা সমাধান ও বিগত সালের প্রশ্ন</p>
+        </div>
+        <i class="fa-solid fa-chevron-right chevron-icon"></i>
+      </div>
+
+      <div class="ios-card" onclick="openChapter(8, 'data/ch08.js')">
+        <div class="card-glass-symbol" style="--accent-color: #FFD60A;"><i class="fa-solid fa-coins"></i></div>
+        <div class="card-details">
+          <span class="chap-badge">অধ্যায় ০৮</span>
+          <h3>মুনাফা আসল</h3>
+          <p class="chap-sub">সমস্যা সমাধান ও বিগত সালের প্রশ্ন</p>
+        </div>
+        <i class="fa-solid fa-chevron-right chevron-icon"></i>
+      </div>
+
+      <div class="ios-card" onclick="openChapter(9, 'data/ch09.js')">
+        <div class="card-glass-symbol" style="--accent-color: #AC8E68;"><i class="fa-solid fa-ruler-combined"></i></div>
+        <div class="card-details">
+          <span class="chap-badge">অধ্যায় ০৯</span>
+          <h3>পরিমাপ</h3>
+          <p class="chap-sub">সমস্যা সমাধান ও বিগত সালের প্রশ্ন</p>
+        </div>
+        <i class="fa-solid fa-chevron-right chevron-icon"></i>
+      </div>
+
+      <div class="ios-card" onclick="openChapter(10, 'data/ch10.js')">
+        <div class="card-glass-symbol" style="--accent-color: #32D74B;"><i class="fa-solid fa-square-root-variable"></i></div>
+        <div class="card-details">
+          <span class="chap-badge">অধ্যায় ১০</span>
+          <h3>সরল ও দ্বিপদী সমীকরণ</h3>
+          <p class="chap-sub">সমস্যা সমাধান ও বিগত সালের প্রশ্ন</p>
+        </div>
+        <i class="fa-solid fa-chevron-right chevron-icon"></i>
+      </div>
+
+      <div class="ios-card" onclick="openChapter(11, 'data/ch11.js')">
+        <div class="card-glass-symbol" style="--accent-color: #FF453A;"><i class="fa-solid fa-route"></i></div>
+        <div class="card-details">
+          <span class="chap-badge">অধ্যায় ১১</span>
+          <h3>দূরত্ব</h3>
+          <p class="chap-sub">সমস্যা সমাধান ও বিগত সালের প্রশ্ন</p>
+        </div>
+        <i class="fa-solid fa-chevron-right chevron-icon"></i>
+      </div>
+
+      <div class="ios-card" onclick="openChapter(12, 'data/ch12.js')">
+        <div class="card-glass-symbol" style="--accent-color: #0A84FF;"><i class="fa-solid fa-divide"></i></div>
+        <div class="card-details">
+          <span class="chap-badge">অধ্যায় ১২</span>
+          <h3>ভগ্নাংশ</h3>
+          <p class="chap-sub">সমস্যা সমাধান ও বিগত সালের প্রশ্ন</p>
+        </div>
+        <i class="fa-solid fa-chevron-right chevron-icon"></i>
+      </div>
+
+      <div class="ios-card" onclick="openChapter(13, 'data/ch13.js')">
+        <div class="card-glass-symbol" style="--accent-color: #5E5CE6;"><i class="fa-solid fa-chart-line"></i></div>
+        <div class="card-details">
+          <span class="chap-badge">অধ্যায় ১৩</span>
+          <h3>গড়</h3>
+          <p class="chap-sub">সমস্যা সমাধান ও বিগত সালের প্রশ্ন</p>
+        </div>
+        <i class="fa-solid fa-chevron-right chevron-icon"></i>
+      </div>
+
+      <div class="ios-card" onclick="openChapter(14, 'data/ch14.js')">
+        <div class="card-glass-symbol" style="--accent-color: #30D158;"><i class="fa-solid fa-bars-staggered"></i></div>
+        <div class="card-details">
+          <span class="chap-badge">অধ্যায় ১৪</span>
+          <h3>ধারা</h3>
+          <p class="chap-sub">সমস্যা সমাধান ও বিগত সালের প্রশ্ন</p>
+        </div>
+        <i class="fa-solid fa-chevron-right chevron-icon"></i>
+      </div>
+
+      <div class="ios-card" onclick="openChapter(15, 'data/ch15.js')">
+        <div class="card-glass-symbol" style="--accent-color: #FF9F0A;"><i class="fa-solid fa-superscript"></i></div>
+        <div class="card-details">
+          <span class="chap-badge">অধ্যায় ১৫</span>
+          <h3>সরল ও মান নির্ণয়</h3>
+          <p class="chap-sub">সমস্যা সমাধান ও বিগত সালের প্রশ্ন</p>
+        </div>
+        <i class="fa-solid fa-chevron-right chevron-icon"></i>
+      </div>
+
+      <div class="ios-card" onclick="openChapter(16, 'data/ch16.js')">
+        <div class="card-glass-symbol" style="--accent-color: #BF5AF2;"><i class="fa-solid fa-sitemap"></i></div>
+        <div class="card-details">
+          <span class="chap-badge">অধ্যায় ১৬</span>
+          <h3>উৎপাদক</h3>
+          <p class="chap-sub">সমস্যা সমাধান ও বিগত সালের প্রশ্ন</p>
+        </div>
+        <i class="fa-solid fa-chevron-right chevron-icon"></i>
+      </div>
+
+      <div class="ios-card" onclick="openChapter(17, 'data/ch17.js')">
+        <div class="card-glass-symbol" style="--accent-color: #64D2FF;"><i class="fa-solid fa-arrows-split-up-and-left"></i></div>
+        <div class="card-details">
+          <span class="chap-badge">অধ্যায় ১৭</span>
+          <h3>গ.সা.গু এবং ল.সা.গু</h3>
+          <p class="chap-sub">সমস্যা সমাধান ও বিগত সালের প্রশ্ন</p>
+        </div>
+        <i class="fa-solid fa-chevron-right chevron-icon"></i>
+      </div>
+
+      <div class="ios-card" onclick="openChapter(18, 'data/ch18.js')">
+        <div class="card-glass-symbol" style="--accent-color: #FFD60A;"><i class="fa-solid fa-equals"></i></div>
+        <div class="card-details">
+          <span class="chap-badge">অধ্যায় ১৮</span>
+          <h3>সমীকরণ সমাধান</h3>
+          <p class="chap-sub">সমস্যা সমাধান ও বিগত সালের প্রশ্ন</p>
+        </div>
+        <i class="fa-solid fa-chevron-right chevron-icon"></i>
+      </div>
+
+      <div class="ios-card" onclick="openChapter(19, 'data/ch19.js')">
+        <div class="card-glass-symbol" style="--accent-color: #FF375F;"><i class="fa-solid fa-atom"></i></div>
+        <div class="card-details">
+          <span class="chap-badge">অধ্যায় ১৯</span>
+          <h3>সূচক ও লগারিদম</h3>
+          <p class="chap-sub">সমস্যা সমাধান ও বিগত সালের প্রশ্ন</p>
+        </div>
+        <i class="fa-solid fa-chevron-right chevron-icon"></i>
+      </div>
+
+      <div class="ios-card" onclick="openChapter(20, 'data/ch20.js')">
+        <div class="card-glass-symbol" style="--accent-color: #AC8E68;"><i class="fa-solid fa-shapes"></i></div>
+        <div class="card-details">
+          <span class="chap-badge">অধ্যায় ২০</span>
+          <h3>বিবিধ</h3>
+          <p class="chap-sub">সমস্যা সমাধান ও বিগত সালের প্রশ্ন</p>
+        </div>
+        <i class="fa-solid fa-chevron-right chevron-icon"></i>
+      </div>
+
+      <div class="ios-card" onclick="openChapter(21, 'data/ch21.js')">
+        <div class="card-glass-symbol" style="--accent-color: #0A84FF;"><i class="fa-solid fa-draw-polygon"></i></div>
+        <div class="card-details">
+          <span class="chap-badge">অধ্যায় ২১</span>
+          <h3>ত্রিকোণমিতি</h3>
+          <p class="chap-sub">সমস্যা সমাধান ও বিগত সালের প্রশ্ন</p>
+        </div>
+        <i class="fa-solid fa-chevron-right chevron-icon"></i>
+      </div>
+
+      <div class="ios-card" onclick="openChapter(22, 'data/ch22.js')">
+        <div class="card-glass-symbol" style="--accent-color: #30D158;"><i class="fa-solid fa-pen-ruler"></i></div>
+        <div class="card-details">
+          <span class="chap-badge">অধ্যায় ২২</span>
+          <h3>জ্যামিতিক সংজ্ঞা</h3>
+          <p class="chap-sub">সংজ্ঞা ও চিত্রভিত্তিক ধারণা</p>
+        </div>
+        <i class="fa-solid fa-chevron-right chevron-icon"></i>
+      </div>
+
+      <div class="ios-card" onclick="openChapter(23, 'data/ch23.js')">
+        <div class="card-glass-symbol" style="--accent-color: #5E5CE6;"><i class="fa-solid fa-clipboard-question"></i></div>
+        <div class="card-details">
+          <span class="chap-badge">অধ্যায় ২৩</span>
+          <h3>সংক্ষিপ্ত প্রশ্ন-উত্তর</h3>
+          <p class="chap-sub">বিগত সালের প্রশ্নোত্তর সংকলন</p>
+        </div>
+        <i class="fa-solid fa-chevron-right chevron-icon"></i>
+      </div>
+
+      <div class="ios-card" onclick="openChapter(24, 'data/ch24.js')">
+        <div class="card-glass-symbol" style="--accent-color: #FF9F0A;"><i class="fa-solid fa-file-lines"></i></div>
+        <div class="card-details">
+          <span class="chap-badge">অধ্যায় ২৪</span>
+          <h3>নমুনা প্রশ্ন</h3>
+          <p class="chap-sub">মডেল টেস্ট ও অনুশীলন প্রশ্নমালা</p>
+        </div>
+        <i class="fa-solid fa-chevron-right chevron-icon"></i>
+      </div>
+    </section>
+
+    <!-- Questions Tray -->
+    <section id="chapterContentTray" class="questions-tray" style="display:none;"></section>
+  </main>
+
+
+  <script src="app.js?v=5.0"></script>
+</body>
+</html>
