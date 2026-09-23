@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>গণিত প্রস্তুতি | Bilas Academy</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+  
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+</head>
+<body>
+
+  <!-- iOS Navbar (Auto Hide) -->
+  <header class="ios-navbar" id="iosNavbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <button id="navBackBtn" class="ios-back-btn" onclick="goBackToIndex()" style="display: none;">
+          <i class="fa-solid fa-chevron-left"></i>
+          <span>অধ্যায়</span>
+        </button>
+        <div class="nav-titles">
+          <span class="ios-badge">Bilas Academy</span>
+          <h1 id="pageMainTitle">গণিত প্রস্তুতি</h1>
+        </div>
+      </div>
+
+      <!-- ফন্ট সাইজ নিয়ন্ত্রণ বাটন -->
+      <div class="ios-stepper">
+        <button onclick="adjustFontSize(-1)" title="ফন্ট ছোট করুন">A-</button>
+        <button onclick="adjustFontSize(1)" title="ফন্ট বড় করুন">A+</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="ios-body">
+    <!-- Search Bar -->
+    <div class="ios-search-wrapper">
+      <div class="ios-search-box">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="spotlightSearch" placeholder="অফিসের নাম বা প্রশ্ন খুঁজুন..." oninput="onSearchInput(this.value)">
+      </div>
+    </div>
+
+    <!-- ডাইনামিক ফিল্টার পিল কন্টেইনার -->
+    <div class="filter-pills-wrap" id="filterPillsContainer"></div>
+
+    <!-- Chapter Index Grid -->
+    <section id="chapterIndexGrid">
+      <div class="all-questions-card" onclick="openAllQuestions()">
+        <div>
+          <h3>সকল প্রশ্ন ব্যাংক</h3>
+          <p id="totalQuestionsCountText">১৬-২০তম গ্রেডের বিগত সালের সকল গণিত</p>
+        </div>
+        <i class="fa-solid fa-arrow-right" style="font-size: 1.2rem;"></i>
+      </div>
+
+      <div class="ios-grid" id="gridContainer"></div>
+    </section>
+
+    <!-- Questions Tray -->
+    <section id="chapterContentTray" class="questions-tray" style="display: none;"></section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

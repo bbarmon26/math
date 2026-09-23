@@ -1,0 +1,417 @@
+:root {
+  --bg-color: #f2f2f7;
+  --card-bg: #ffffff;
+  --primary-text: #000000;
+  --secondary-text: #8e8e93;
+  --accent-blue: #007aff;
+  --accent-green: #34c759;
+  --border-color: rgba(60, 60, 67, 0.12);
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  
+  --q-title-size: 1.05rem;
+  --q-sol-size: 0.98rem;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', 'Noto Sans Bengali', -apple-system, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--primary-text);
+  min-height: 100vh;
+  padding-bottom: 50px;
+}
+
+/* iOS Navbar */
+.ios-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 0.5px solid var(--border-color);
+  padding: 12px 16px;
+  transition: transform 0.3s ease;
+}
+
+.ios-navbar.nav-hidden {
+  transform: translateY(-100%);
+}
+
+.nav-container {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ios-back-btn {
+  background: none;
+  border: none;
+  color: var(--accent-blue);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ios-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent-blue);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.nav-titles h1 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Stepper */
+.ios-stepper {
+  display: flex;
+  background: rgba(142, 142, 147, 0.15);
+  border-radius: 9px;
+  padding: 2px;
+  gap: 2px;
+}
+
+.ios-stepper button {
+  background: transparent;
+  border: none;
+  padding: 5px 11px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent-blue);
+  cursor: pointer;
+  border-radius: 7px;
+  transition: background 0.15s ease;
+}
+
+.ios-stepper button:active {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.ios-body {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+/* Search Bar */
+.ios-search-wrapper {
+  margin-bottom: 12px;
+}
+
+.ios-search-box {
+  background: rgba(142, 142, 147, 0.12);
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-icon {
+  color: var(--secondary-text);
+  font-size: 0.95rem;
+}
+
+.ios-search-box input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  font-size: 1rem;
+  color: var(--primary-text);
+}
+
+/* Filter Pills */
+.filter-pills-wrap {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 14px;
+  scrollbar-width: none;
+}
+.filter-pills-wrap::-webkit-scrollbar { display: none; }
+
+.filter-pill {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--secondary-text);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.filter-pill.active {
+  background: var(--accent-blue);
+  color: #ffffff;
+  border-color: var(--accent-blue);
+  box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
+}
+
+/* Grid Layout */
+.ios-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.ios-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: var(--card-shadow);
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s;
+}
+
+.ios-card:active {
+  transform: scale(0.98);
+  background-color: #f7f7f9;
+}
+
+.card-glass-symbol {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--accent-color) 15%, transparent);
+  color: var(--accent-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.card-details {
+  flex: 1;
+}
+
+.chap-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--secondary-text);
+  text-transform: uppercase;
+}
+
+.card-details h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 2px 0;
+  color: var(--primary-text);
+}
+
+.chap-sub {
+  font-size: 0.85rem;
+  color: var(--secondary-text);
+}
+
+.chevron-icon {
+  color: #c7c7cc;
+  font-size: 0.95rem;
+}
+
+/* All Questions Card */
+.all-questions-card {
+  background: linear-gradient(135deg, #007aff, #0056b3);
+  color: #ffffff;
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 122, 255, 0.25);
+}
+
+.all-questions-card h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.all-questions-card p {
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+/* Question Cards */
+.questions-tray {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.question-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: var(--card-shadow);
+  border: 0.5px solid var(--border-color);
+}
+
+.q-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.badge-wrap {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.q-tag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: #eef2ff;
+  color: #3730a3;
+}
+
+.q-source {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.q-post-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: #e0f2fe;
+  color: #0369a1;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.q-title {
+  font-size: var(--q-title-size);
+  font-weight: 600;
+  line-height: 1.6;
+  color: #1c1c1e;
+  margin-bottom: 14px;
+  transition: font-size 0.15s ease;
+}
+
+/* Solution Box */
+.toggle-sol-btn {
+  background: #f2f2f7;
+  border: none;
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--accent-blue);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.15s ease;
+}
+
+.solution-drawer {
+  display: none;
+  margin-top: 14px;
+  padding: 14px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border-left: 4px solid var(--accent-green);
+  font-size: var(--q-sol-size);
+  line-height: 1.8;
+  color: #334155;
+  transition: font-size 0.15s ease;
+}
+
+.solution-drawer.open {
+  display: block;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* ===================================================
+   DUPLICATE QUESTION HIGHLIGHT
+   =================================================== */
+.question-card.duplicate-card {
+  border: 1.5px solid #ef4444 !important;
+  background-color: #fff5f5 !important;
+}
+
+.duplicate-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #fca5a5;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+/* Duplicate Secondary Card Style */
+.question-card.duplicate-secondary {
+  position: relative;
+  overflow: hidden;
+  border: 1.5px dashed #f87171 !important;
+  background-color: #fffafb !important;
+}
+
+/* Boro Duplicate Watermark */
+.duplicate-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-25deg);
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: rgba(239, 68, 68, 0.12);
+  pointer-events: none;
+  user-select: none;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  white-space: nowrap;
+  z-index: 0;
+}
+
+/* Primary First Duplicate Card Style */
+.question-card.duplicate-primary {
+  border: 1.5px solid #ef4444 !important;
+  background-color: #fef2f2 !important;
+}
