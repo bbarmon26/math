@@ -18,14 +18,17 @@
         inlineMath: [['$', '$'], ['\\(', '\\)']],
         displayMath: [['$$', '$$']]
       },
-      svg: { fontCache: 'global' }
+      svg: { fontCache: 'global' },
+      startup: {
+        typeset: false // একবারে পুরো পেজে MathJax রান হওয়া বন্ধ রাখা হলো যাতে পেজ সুপারফাস্ট লোড হয়
+      }
     };
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
 </head>
 <body>
 
-  <!-- iOS Navbar (Auto Hide) -->
+  <!-- iOS Navbar -->
   <header class="ios-navbar" id="iosNavbar">
     <div class="nav-container">
       <div class="nav-left">
@@ -74,8 +77,15 @@
 
     <!-- Questions Tray -->
     <section id="chapterContentTray" class="questions-tray" style="display: none;"></section>
+
+    <!-- লোডিং ইন্ডিকেটর (নিচে স্ক্রোল করলে দেখাবে) -->
+    <div id="scrollLoader" style="display: none; text-align: center; padding: 20px; font-weight: 600; color: #8e8e93;">
+      <i class="fa-solid fa-spinner fa-spin"></i> আরো প্রশ্ন লোড হচ্ছে...
+    </div>
   </main>
 
+  <!-- প্রথমে ডেটা ফাইল, তারপর স্ক্রিপ্ট ফাইল -->
+  <script src="data.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
